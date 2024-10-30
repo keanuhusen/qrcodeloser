@@ -3,9 +3,14 @@ import { headers } from 'next/headers'
 
 export default async function Home() {
   const headersList = await headers();
-  const ip = headersList.get('x-forwarded-for');
+  const ip = headersList.get('x-forwarded-for') || headersList.get('remote-address');
+  const res = await fetch(`http://ip-api.com/json/${ip}`);
+  // const res = await fetch(`http://ip-api.com/json/104.49.117.202`);
+  const ipInfo = await res.json();
   console.log(ip);
-  
+  console.log(ipInfo);
+  // console.log(ipInfo.body.response.region);
+
   return (
     <div className="block">
       <main className="py-8 px-4">
@@ -14,6 +19,10 @@ export default async function Home() {
           <div className="mt-4 text-lg text-[#007E80] text-pretty md:text-xl">
             <p>I&apos;m currently based in Birmingham, AL.</p>
             <p>If you are seeing this, it&apos;s probably because you scanned a random QR code on the side of the street.</p>
+            <br />
+            <p>Your IP address: {ip}</p>
+            <p>Your State: {ipInfo?.regionName}</p>
+            <p>Your City: {ipInfo?.city}</p>
           </div>
         </div>
       </main>
