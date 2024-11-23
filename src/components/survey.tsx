@@ -3,13 +3,19 @@
 import { useState } from 'react';
 import { supabase } from '@/utils/supabase/client';
 
-export default function Survey({ ip, region, city }) {
+interface SurveyProps {
+  ip: string;
+  region: string;
+  city: string;
+}
+
+export default function Survey({ ip, region, city }: SurveyProps) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [selectedCity, setSelectedCity] = useState('Atlanta');
   const [expectation, setExpectation] = useState('');
   const [sentiment, setSentiment] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // const { data, error } = await supabase
