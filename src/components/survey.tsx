@@ -1,67 +1,115 @@
 'use client';
-// import React from 'react';
-// import { useForm, ValidationError } from '@formspree/react';
 
-function Survey() {
-  // const [state, handleSubmit] = useForm("xzzbzlny");
-  // if (state.succeeded) {
-  //   return <p>Thanks for joining!</p>;
-  // }
-  const handleSubmit = () => {
-    alert('fake form fill... gotcha again!');
+import { useState } from 'react';
+import { supabase } from '@/utils/supabase/client';
+
+export default function Survey({ ip, region, city }) {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [selectedCity, setSelectedCity] = useState('Atlanta');
+  const [expectation, setExpectation] = useState('');
+  const [sentiment, setSentiment] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // const { data, error } = await supabase
+    // .from('gotcha')
+    // .select('*')
+
+    const { data, error } = await supabase
+    .from('gotcha')
+    .insert([
+      {
+        ip: ip,
+        region: region,
+        city: city,
+        selected_city: selectedCity,
+        expectation: expectation,
+        sentiment: sentiment,
+      },
+    ])
+    .select()
+
+    if (error) {
+      console.log(error);
+    }
+
+    if (data) {
+      console.log(data);
+    }
+
+    setIsSubmitted(true);
   }
   return (
     <>
-      <form onSubmit={() => handleSubmit()}>
-        <label htmlFor="">Where did you scan this QR code?</label>
-        <br />
-        <select name="" id="">
-          <option value="">Atlanta</option>
-          <option value="">Birmingham</option>
-          <option value="">Chicago</option>
-          <option value="">Dallas/Fort Worth</option>
-          <option value="">Houston</option>
-          <option value="">Los Angeles</option>
-          <option value="">Nashville</option>
-          <option value="">New York</option>
-          <option value="">Orlando</option>
-          <option value="">Phoenix</option>
-          <option value="">San Diego</option>
-          <option value="">San Francisco/San Jose</option>
-          <option value="">Seattle</option>
-        </select>
-        <br />
-        <input type="submit" value="Submit" className="px-4 py-2 text-white bg-[#E94B3C]"/>
-      </form>
-      {/* <form onSubmit={handleSubmit}>
-        <label htmlFor="email">
-          Email Address
-        </label>
+      <form onSubmit={(e) => handleSubmit(e)} className={`${isSubmitted ? 'hidden' : 'block'}`}>
+        <div className="mb-4">
+          <label htmlFor="expectation" className="block mb-2"><strong>1.</strong> Before you scanned the QR code, what were you expecting?</label>
+          <input
+            type="text"
+            name="expectation"
+            id="expectation"
+            maxLength={250}
+            onChange={(e) => setExpectation(e.target.value)}
+            className="block w-full px-4 py-2 text-[#272727] bg-transparent border-2 rounded-lg border-[#E94B3C]"
+          />
+          <span className="text-sm">^ max characters: 250</span>
+        </div>
+        <div className="mb-4">
+          <label htmlFor="sentiment" className="block mb-2"><strong>2.</strong> How did you feel after scanning the QR code?</label>
+          <input
+            type="text"
+            name="sentiment"
+            id="sentiment"
+            maxLength={250}
+            onChange={(e) => setSentiment(e.target.value)}
+            className="block w-full px-4 py-2 text-[#272727] bg-transparent border-2 rounded-lg border-[#E94B3C]"
+          />
+          <span className="text-sm">^ max characters: 250</span>
+        </div>
+        <div className="mb-4">
+          <label htmlFor="city" className="block mb-2"><strong>3.</strong> Where did you scan this QR code?</label>
+          <select
+            name="city"
+            id="city"
+            onChange={(e) => setSelectedCity(e.target.value)}
+            defaultValue={selectedCity}
+            className="block w-full px-4 py-2 text-[#272727] bg-transparent border-2 rounded-lg border-[#E94B3C]"
+          >
+            <option value="Atlanta">Atlanta, GA</option>
+            <option value="Birmingham">Birmingham, AL</option>
+            <option value="Charlotte">Charlotte, NC</option>
+            <option value="Costa Mesa">Costa Mesa, CA</option>
+            <option value="Dallas">Dallas, TX</option>
+            <option value="Irvine">Irvine, CA</option>
+            <option value="Los Angeles">Los Angeles, CA</option>
+            <option value="Nashville">Nashville, TN</option>
+            <option value="New York">New York, NY</option>
+            <option value="Orlando">Orlando, FL</option>
+            <option value="Phoenix">Phoenix, AZ</option>
+            <option value="San Diego">San Diego, CA</option>
+            <option value="San Francisco">San Francisco, CA</option>
+            <option value="San Jose">San Jose, CA</option>
+          </select>
+        </div>
         <input
-          id="email"
-          type="email" 
-          name="email"
+          type="submit"
+          value="submit"
+          className="px-12 py-2 text-white bg-[#E94B3C] border-2 rounded-lg border-[#E94B3C] cursor-pointer"
         />
-        <ValidationError 
-          prefix="Email" 
-          field="email"
-          errors={state.errors}
-        />
-        <textarea
-          id="message"
-          name="message"
-        />
-        <ValidationError 
-          prefix="Message" 
-          field="message"
-          errors={state.errors}
-        />
-        <button type="submit" disabled={state.submitting}>
-          Submit
-        </button>
-      </form> */}
+      </form>
+      <div className={`${isSubmitted ? 'block' : 'hidden'} p-4 border-2 rounded-lg border-[#E94B3C]`}>
+        {city !== selectedCity
+          ? <div>
+            <p>Nice try, liar. We know you scanned the QR code in {city} and not {selectedCity}.</p>
+            <br />
+            <p>But thanks anyway for trying to participate in the survey. We're not actually storing responses... so, gotcha again! You just wasted more of your time. Go outside, touch grass, pet a dog, tell your kin you love them, and enjoy the rest of your day!</p>
+          </div>
+          : <div>
+            <p>Thanks for participating in the survey. We're not actually storing responses... so, gotcha again! You just wasted more of your time. Go outside, touch grass, pet a dog, tell your kin you love them, and enjoy the rest of your day!</p>
+          </div>
+        }
+      </div>
     </>
   );
 }
-
-export default Survey;

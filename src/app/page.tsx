@@ -1,5 +1,5 @@
 // import Image from "next/image";
-import { headers } from 'next/headers'
+import { headers } from 'next/headers';
 
 export default async function Home() {
   const headersList = await headers();
@@ -7,9 +7,10 @@ export default async function Home() {
   const res = await fetch(`http://ip-api.com/json/${ip}`);
   // const res = await fetch(`http://ip-api.com/json/104.49.117.202`);
   const ipInfo = await res.json();
-  console.log(ip);
-  console.log(ipInfo);
-  // console.log(ipInfo.body.response.region);
+  const region = ipInfo?.regionName ? ipInfo.regionName : 'Unknown';
+  const city = ipInfo?.city ? ipInfo.city : 'Unknown';
+  // console.log(ip);
+  // console.log(ipInfo);
 
   return (
     <div className="block">
@@ -21,8 +22,8 @@ export default async function Home() {
             <p>If you are seeing this, it&apos;s probably because you scanned a random QR code on the side of the street.</p>
             <br />
             <p>Your IP address: {ip}</p>
-            <p>Your State: {ipInfo?.regionName}</p>
-            <p>Your City: {ipInfo?.city}</p>
+            <p>Your State: {region}</p>
+            <p>Your City: {city}</p>
           </div>
         </div>
       </main>
