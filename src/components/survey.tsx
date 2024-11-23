@@ -103,10 +103,10 @@ export default function Survey({ ip, region, city }) {
           ? <div>
             <p>Nice try, liar. We know you scanned the QR code in {city} and not {selectedCity}.</p>
             <br />
-            <p>But thanks anyway for trying to participate in the survey. We're not actually storing responses... so, gotcha again! You just wasted more of your time. Go outside, touch grass, pet a dog, tell your kin you love them, and enjoy the rest of your day!</p>
+            <p>But thanks anyway for trying to participate in the survey. We&apos;re not actually storing responses... so, gotcha again! You just wasted more of your time. Go outside, touch grass, pet a dog, tell your kin you love them, and enjoy the rest of your day!</p>
           </div>
           : <div>
-            <p>Thanks for participating in the survey. We're not actually storing responses... so, gotcha again! You just wasted more of your time. Go outside, touch grass, pet a dog, tell your kin you love them, and enjoy the rest of your day!</p>
+            <p>Thanks for participating in the survey. We&apos;re not actually storing responses... so, gotcha again! You just wasted more of your time. Go outside, touch grass, pet a dog, tell your kin you love them, and enjoy the rest of your day!</p>
           </div>
         }
       </div>
