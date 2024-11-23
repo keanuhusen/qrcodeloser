@@ -20,7 +20,7 @@ export default async function Home() {
             <p>If you are seeing this, it&apos;s probably because you scanned a random QR code on the side of the street.</p>
             <br />
             <p>Interested in advancing our mission?</p>
-            <a href="/gotcha" className="inline-block mt-4 px-8 py-2 text-white bg-[#E94B3C] border-2 rounded-lg border-[#E94B3C] cursor-pointer">Fill out our survey!</a>
+            <a href="/gotcha" className="inline-block mt-4 px-8 py-2 text-white bg-[#E94B3C] border-2 rounded-lg border-[#E94B3C] cursor-pointer">Fill out the survey!</a>
             {/* <br />
             <p>Your IP address: {ip}</p>
             <p>Your State: {region}</p>
