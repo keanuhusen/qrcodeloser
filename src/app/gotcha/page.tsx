@@ -41,7 +41,7 @@ export default async function Page() {
               <br />
               <p className="font-display text-[#E94B3C]">You can fill out the survey below!</p>
               <br />
-              <p>All joking aside, this QR code was carefully placed for a specific purpose. You have so graciously scanned and, therefore, been led to the primary objective of this website, which is scientific research and not development. So please be honest when answering the survey; keep in mind that this is for posterity.</p>
+              <p>All joking aside, this QR code was carefully placed for a specific purpose. You have so graciously scanned and, therefore, been led to the primary objective of this project, which is scientific research. Please be honest when answering the survey; keep in mind that this is for posterity.</p>
               <br />
               <Survey ip={ip} region={region} city={city} />
               {/* <br />
