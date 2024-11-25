@@ -12,11 +12,14 @@ interface SurveyProps {
 export default function Survey({ ip, region, city }: SurveyProps) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [selectedCity, setSelectedCity] = useState('Atlanta');
+  const [initialSentiment, setInitialSentiment] = useState('');
   const [expectation, setExpectation] = useState('');
   const [sentiment, setSentiment] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    setIsSubmitted(true);
 
     // const { data, error } = await supabase
     // .from('gotcha')
@@ -30,6 +33,7 @@ export default function Survey({ ip, region, city }: SurveyProps) {
         region: region,
         city: city,
         selected_city: selectedCity,
+        initial_sentiment: initialSentiment,
         expectation: expectation,
         sentiment: sentiment,
       },
@@ -37,51 +41,67 @@ export default function Survey({ ip, region, city }: SurveyProps) {
     .select()
 
     if (error) {
+      console.log('Error storing survey response.');
       console.log(error);
     }
 
     if (data) {
+      console.log('Successfully stored survey response.');
       console.log(data);
     }
-
-    setIsSubmitted(true);
   }
   return (
     <>
       <form onSubmit={(e) => handleSubmit(e)} className={`${isSubmitted ? 'hidden' : 'block'}`}>
         <div className="mb-4">
-          <label htmlFor="expectation" className="block mb-2"><strong>1.</strong> Before you scanned the QR code, what were you expecting?</label>
+          <label htmlFor="initialSentiment" className="block mb-2"><strong>1.</strong> When you first saw the QR code, what did you initially feel?</label>
+          <input
+            type="text"
+            name="initialSentiment"
+            id="initialSentiment"
+            maxLength={250}
+            placeholder='Example: excited, worried, hesitant'
+            onChange={(e) => setInitialSentiment(e.target.value)}
+            className="block w-full px-4 py-2 text-[#272727] bg-transparent border-2 rounded-lg border-[#E94B3C]"
+          />
+          <span className="text-sm">^ max characters: 250</span>
+        </div>
+        <div className="mb-4">
+          <label htmlFor="expectation" className="block mb-2"><strong>2.</strong> Before you scanned the QR code, what were you expecting?</label>
           <input
             type="text"
             name="expectation"
             id="expectation"
             maxLength={250}
+            placeholder='Example: a monkey'
             onChange={(e) => setExpectation(e.target.value)}
             className="block w-full px-4 py-2 text-[#272727] bg-transparent border-2 rounded-lg border-[#E94B3C]"
           />
           <span className="text-sm">^ max characters: 250</span>
         </div>
         <div className="mb-4">
-          <label htmlFor="sentiment" className="block mb-2"><strong>2.</strong> How did you feel after scanning the QR code?</label>
+          <label htmlFor="sentiment" className="block mb-2"><strong>3.</strong> After scanning the QR code, how do you feel?</label>
           <input
             type="text"
             name="sentiment"
             id="sentiment"
             maxLength={250}
+            placeholder='Example: got, disappointed, amazed, embarrassed'
             onChange={(e) => setSentiment(e.target.value)}
             className="block w-full px-4 py-2 text-[#272727] bg-transparent border-2 rounded-lg border-[#E94B3C]"
           />
           <span className="text-sm">^ max characters: 250</span>
         </div>
         <div className="mb-4">
-          <label htmlFor="city" className="block mb-2"><strong>3.</strong> Where did you scan this QR code?</label>
+          <label htmlFor="city" className="block mb-2"><strong>4.</strong> Where did you scan this QR code?</label>
           <select
             name="city"
             id="city"
             onChange={(e) => setSelectedCity(e.target.value)}
-            defaultValue={selectedCity}
+            defaultValue=""
             className="block w-full px-4 py-2 text-[#272727] bg-transparent border-2 rounded-lg border-[#E94B3C]"
           >
+            <option value="" disabled>Select a City</option>
             <option value="Atlanta">Atlanta, GA</option>
             <option value="Birmingham">Birmingham, AL</option>
             <option value="Charlotte">Charlotte, NC</option>
@@ -94,20 +114,18 @@ export default function Survey({ ip, region, city }: SurveyProps) {
             <option value="Orlando">Orlando, FL</option>
             <option value="Phoenix">Phoenix, AZ</option>
             <option value="San Diego">San Diego, CA</option>
-            <option value="San Francisco">San Francisco, CA</option>
-            <option value="San Jose">San Jose, CA</option>
           </select>
         </div>
         <input
           type="submit"
-          value="submit"
-          className="px-12 py-2 text-white bg-[#E94B3C] border-2 rounded-lg border-[#E94B3C] cursor-pointer"
+          value="Submit"
+          className="px-12 py-2 text-white font-bold bg-[#E94B3C] border-2 rounded-lg border-[#E94B3C] cursor-pointer"
         />
       </form>
       <div className={`${isSubmitted ? 'block' : 'hidden'} p-4 border-2 rounded-lg border-[#E94B3C]`}>
         {city !== selectedCity
           ? <div>
-            <p>Nice try, liar. We know you scanned the QR code in {city} and not {selectedCity}.</p>
+            <p>Nice try; either you lied to us in the survey, or your IP address location is mismatched. We know you&apos;re currently in {city} even though you selected {selectedCity}.</p>
             <br />
             <p>But thanks anyway for trying to participate in the survey. We&apos;re not actually storing responses... so, gotcha again! You just wasted more of your time. Go outside, touch grass, pet a dog, tell your kin you love them, and enjoy the rest of your day!</p>
           </div>

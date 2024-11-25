@@ -37,11 +37,11 @@ export default async function Page() {
           <div className="basis-1/2 grow-0 shrink-0 text-pretty">
             <h1 className="text-2xl font-display text-[#E94B3C] md:text-4xl">What can be done with such an atrocity?!</h1>
             <div className="mt-4 text-lg text-[#007E80] md:text-xl">
-              <p>Not much! Your time has been wasted. Yet here you are still reading this paragraph as if to miraculously bring about redemption for your lost time. Unfortunately, reading this will not... but there is something you can do to redeem your ego pride.</p>
+              <p>Not much! Your time has been wasted. Yet here you are still reading this paragraph as if to miraculously bring about redemption for your lost time. Unfortunately, reading this will not... but there is something you can do to redeem your ego and pride.</p>
               <br />
               <p className="font-display text-[#E94B3C]">You can fill out the survey below!</p>
               <br />
-              <p>All joking aside, this QR code was carefully placed for a specific purpose. You have so graciously scanned and been led to the primary objective of this website, which is scientific research and not development. So please be honest when answering the survey, keep in mind that this is for posterity.</p>
+              <p>All joking aside, this QR code was carefully placed for a specific purpose. You have so graciously scanned and, therefore, been led to the primary objective of this website, which is scientific research and not development. So please be honest when answering the survey; keep in mind that this is for posterity.</p>
               <br />
               <Survey ip={ip} region={region} city={city} />
               {/* <br />
@@ -50,6 +50,7 @@ export default async function Page() {
           </div>
         </div>
       </main>
+      <div className="border-t-8 border-[#E94B3C]" />
     </div>
   );
 }
