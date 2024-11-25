@@ -5,7 +5,7 @@ import Survey from "@/components/survey";
 
 export default async function Page() {
   const headersList = await headers();
-  const ip = headersList.get('x-forwarded-for') || headersList.get('remote-address') || 'Unknown';
+  const ip = headersList.get('x-forwarded-for') || headersList.get('x-real-ip') || headersList.get('remote-address') || 'Unknown';
   const res = await fetch(`http://ip-api.com/json/${ip}`);
   const ipInfo = await res.json();
   const region = ipInfo?.regionName ? ipInfo.regionName : 'Unknown';

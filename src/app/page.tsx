@@ -3,7 +3,7 @@ import { headers } from 'next/headers';
 
 export default async function Home() {
   const headersList = await headers();
-  const ip = headersList.get('x-forwarded-for') || headersList.get('remote-address');
+  const ip = headersList.get('x-forwarded-for') || headersList.get('x-real-ip') || headersList.get('remote-address') || 'Unknown';
   const res = await fetch(`http://ip-api.com/json/${ip}`);
   const ipInfo = await res.json();
   const region = ipInfo?.regionName ? ipInfo.regionName : 'Unknown';
