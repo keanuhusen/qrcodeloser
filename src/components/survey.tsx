@@ -125,9 +125,10 @@ export default function Survey({ ip, region, city }: SurveyProps) {
       <div className={`${isSubmitted ? 'block' : 'hidden'} p-4 border-2 rounded-lg border-[#E94B3C]`}>
         {city !== selectedCity
           ? <div>
-            <p>Nice try; either you lied to us in the survey, or your IP address location is mismatched. We know you&apos;re currently in {city} even though you selected {selectedCity}.</p>
+            {/* <p>Nice try; either you lied to us in the survey, or your current IP address location is mismatched. We know you&apos;re currently in {city} even though you selected {selectedCity}.</p> */}
+            <p>Hmmm... either you lied to us in the survey, or your current IP address location is mismatched. Our sources say that you&apos;re currently in {city} even though you selected {selectedCity}.</p>
             <br />
-            <p>But thanks anyway for trying to participate in the survey. We&apos;re not actually storing responses... so, gotcha again! You just wasted more of your time. Go outside, touch grass, pet a dog, tell your kin you love them, and enjoy the rest of your day!</p>
+            <p>But thanks anyway for trying to participate in the survey. We&apos;re not actually storing responses... so, gotcha again! You just wasted more of your time. Go outside, touch grass, pet a dog, tell your kin you love them, and enjoy the rest of your day! Bye now &colon;&rpar;</p>
           </div>
           : <div>
             <p>Thanks for participating in the survey. We&apos;re not actually storing responses... so, gotcha again! You just wasted more of your time. Go outside, touch grass, pet a dog, tell your kin you love them, and enjoy the rest of your day!</p>

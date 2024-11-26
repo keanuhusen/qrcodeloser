@@ -11,15 +11,6 @@ export default async function Page() {
   const region = ipInfo?.regionName ? ipInfo.regionName : 'Unknown';
   const city = ipInfo?.city ? ipInfo.city : 'Unknown';
 
-  let lat = 0;
-  let lon = 0;
-  navigator.geolocation.getCurrentPosition((position) => {
-    // Access the user's coordinates
-    lat = position.coords.latitude;
-    lon = position.coords.longitude;
-  });
-
-
   return (
     <div className="block">
       <main className="py-8 px-4">
@@ -30,10 +21,6 @@ export default async function Page() {
         IP real: {ipReal}
         <br />
         IP remote: {ipRemote}
-        <br />
-        Lattitude: {lat}
-        <br />
-        Longitude: {lon}
         <br />
         regin: {region}
         <br />
