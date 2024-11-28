@@ -39,9 +39,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-M088S0GK9S" />
+      {/* <Script async src="https://www.googletagmanager.com/gtag/js?id=G-M088S0GK9S" />
       <Script id="google-analytics">
         {'window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag("js", new Date()); gtag("config", "G-M088S0GK9S");'}
+      </Script> */}
+      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-C05Z8R97Y3" />
+      <Script id="google-analytics">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-C05Z8R97Y3');
+        `}
       </Script>
       <body
         className={`${angel.variable} ${molengo.variable} font-body antialiased`}

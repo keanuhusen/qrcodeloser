@@ -94,27 +94,31 @@ export default function Survey({ ip, region, city }: SurveyProps) {
         </div>
         <div className="mb-4">
           <label htmlFor="city" className="block mb-2"><strong>4.</strong> Where did you scan this QR code?</label>
-          <select
-            name="city"
-            id="city"
-            onChange={(e) => setSelectedCity(e.target.value)}
-            defaultValue=""
-            className="block w-full px-4 py-2 text-[#272727] bg-transparent border-2 rounded-lg border-[#E94B3C]"
-          >
-            <option value="" disabled>Select a City</option>
-            <option value="Atlanta">Atlanta, GA</option>
-            <option value="Birmingham">Birmingham, AL</option>
-            <option value="Charlotte">Charlotte, NC</option>
-            <option value="Costa Mesa">Costa Mesa, CA</option>
-            <option value="Dallas">Dallas, TX</option>
-            <option value="Irvine">Irvine, CA</option>
-            <option value="Los Angeles">Los Angeles, CA</option>
-            <option value="Nashville">Nashville, TN</option>
-            <option value="New York">New York, NY</option>
-            <option value="Orlando">Orlando, FL</option>
-            <option value="Phoenix">Phoenix, AZ</option>
-            <option value="San Diego">San Diego, CA</option>
-          </select>
+          <div className="relative">
+            <select
+              name="city"
+              id="city"
+              onChange={(e) => setSelectedCity(e.target.value)}
+              defaultValue=""
+              className="block w-full px-4 py-2 text-[#272727] bg-transparent border-2 rounded-lg border-[#E94B3C] appearance-none"
+            >
+              <option value="" disabled>Select a City</option>
+              <option value="Atlanta">Atlanta, GA</option>
+              <option value="Birmingham">Birmingham, AL</option>
+              <option value="Charlotte">Charlotte, NC</option>
+              <option value="Costa Mesa">Costa Mesa, CA</option>
+              <option value="Dallas">Dallas, TX</option>
+              <option value="Irvine">Irvine, CA</option>
+              <option value="Los Angeles">Los Angeles, CA</option>
+              <option value="Nashville">Nashville, TN</option>
+              <option value="New York">New York, NY</option>
+              <option value="Orlando">Orlando, FL</option>
+              <option value="Phoenix">Phoenix, AZ</option>
+              <option value="Riverside">Riverside, CA</option>
+              <option value="San Diego">San Diego, CA</option>
+            </select>
+            <div className="py-2 px-4 font-black absolute top-0 right-0 -z-10 rotate-180">^</div>
+          </div>
         </div>
         <input
           type="submit"
